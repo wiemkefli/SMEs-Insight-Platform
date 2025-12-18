@@ -47,6 +47,7 @@ def v1_weak_rate_by_industry(df: pd.DataFrame) -> go.Figure:
     )
     fig.update_layout(yaxis_title="Weak repayment rate (%)", xaxis_title="", height=420)
     fig.update_xaxes(tickangle=30)
+    fig.update_layout(template="plotly_white", colorway=["#ED1C24", "#FFD200", "#31333F", "#A0A0A0"])
     return fig
 
 
@@ -64,6 +65,7 @@ def v3_weak_rate_by_region(df: pd.DataFrame) -> go.Figure:
     )
     fig.update_layout(yaxis_title="Weak repayment rate (%)", xaxis_title="", height=420)
     fig.update_xaxes(tickangle=30)
+    fig.update_layout(template="plotly_white", colorway=["#ED1C24", "#FFD200", "#31333F", "#A0A0A0"])
     return fig
 
 
@@ -97,6 +99,7 @@ def red_flags_by_company_bar(red_flags_long_df: pd.DataFrame) -> go.Figure:
         legend_title_text="Red flag",
     )
     fig.update_xaxes(tickangle=30)
+    fig.update_layout(template="plotly_white")
     return fig
 
 
@@ -153,6 +156,9 @@ def red_flag_count_bar(company_flags_df: pd.DataFrame, top_n: int = 20) -> go.Fi
         fig.update_xaxes(tickmode="array", tickvals=tickvals, ticktext=tickvals, tickangle=90, tickfont=dict(size=9))
     else:
         fig.update_xaxes(tickangle=60, tickfont=dict(size=10))
+    
+    fig.update_layout(template="plotly_white")
+    fig.update_traces(marker_color="#ED1C24")
     return fig
 
 

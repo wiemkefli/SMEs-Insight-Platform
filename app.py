@@ -25,6 +25,7 @@ from src.load_clean import (
     save_mapping_json,
     validate_mapping_for_columns,
 )
+from src.ui import inject_custom_css, render_kpi_card
 from src.metrics import compute_kpis, format_currency, format_percent
 from src.red_flags import compute_red_flags
 
@@ -129,13 +130,19 @@ def _render_kpis(df: pd.DataFrame) -> None:
     r1c1, r1c2, r1c3 = st.columns(3)
     r2c1, r2c2, r2c3 = st.columns(3)
 
-    r1c1.metric("SMEs", f"{kpis['num_smes']:,}")
-    r1c2.metric("Total Loan Amount", format_currency(kpis["total_loan_amount"]))
-    r1c3.metric("Median Loan Amount", format_currency(kpis["median_loan_amount"]))
+    with r1c1:
+        render_kpi_card("SMEs", f"{kpis['num_smes']:,}")
+    with r1c2:
+        render_kpi_card("Total Loan Amount", format_currency(kpis["total_loan_amount"]))
+    with r1c3:
+        render_kpi_card("Median Loan Amount", format_currency(kpis["median_loan_amount"]))
 
-    r2c1.metric("Avg PD", format_percent(kpis["avg_pd"]))
-    r2c2.metric("Weak Repayment Rate", format_percent(kpis["weak_repayment_rate"]))
-    r2c3.metric("Litigation Rate", format_percent(kpis["litigation_rate"]))
+    with r2c1:
+        render_kpi_card("Avg PD", format_percent(kpis["avg_pd"]))
+    with r2c2:
+        render_kpi_card("Weak Repayment Rate", format_percent(kpis["weak_repayment_rate"]))
+    with r2c3:
+        render_kpi_card("Litigation Rate", format_percent(kpis["litigation_rate"]))
 
 
 def _overview_summary(df: pd.DataFrame) -> list[str]:
@@ -274,6 +281,7 @@ def _get_app_data() -> Optional[AppData]:
 
 def main() -> None:
     st.set_page_config(page_title="AmBank SME Insights Platform", layout="wide")
+    inject_custom_css()
     ensure_dirs()
 
     app_data = _get_app_data()
