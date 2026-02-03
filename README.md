@@ -1,4 +1,4 @@
-# AmBank SME Insights Platform (Streamlit)
+# SME Insights Platform (Streamlit)
 
 Local Streamlit app for cleaning, exploring, and reviewing red-flag signals in an SME Excel dataset (weak repayment, PD, litigation, profitability).
 
